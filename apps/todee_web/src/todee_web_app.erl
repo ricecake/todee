@@ -15,7 +15,19 @@
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
-    todee_web_sup:start_link().
+	case todee_web_sup:start_link() of
+		{ok, Pid} ->
+			Dispatch = cowboy_router:compile([
+				{'_', [
+					% Static File route
+					{"/static/[...]", cowboy_static, {priv_dir, todee_web, "static/"}}
+					% Dynamic Pages
+				]}
+			]),
+			{ok, _} = cowboy:start_http(todee_web, 25, [{ip, {127,0,0,1}}, {port, 8989}],
+							[{env, [{dispatch, Dispatch}]}]),
+			{ok, Pid}
+	end.
 
 %%--------------------------------------------------------------------
 stop(_State) ->
