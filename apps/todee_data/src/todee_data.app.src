@@ -1,0 +1,18 @@
+{application, todee_data, [
+	{description, "TODEE data management app"},
+	{vsn, "0.1.0"},
+	{registered, []},
+	{mod, { todee_data_app, []}},
+	{applications, [
+		kernel,
+		stdlib,
+		lager,
+		pgapp,
+		sqerl
+	]},
+	{env,[]},
+	{modules, []},
+	{maintainers, []},
+	{licenses, []},
+	{links, []}
+]}.

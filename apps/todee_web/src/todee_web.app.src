@@ -1,0 +1,20 @@
+{application, todee_web, [
+	{description, "TODEE web interface"},
+	{vsn, "0.1.0"},
+	{registered, []},
+	{mod, { todee_web_app, []}},
+	{applications, [
+		kernel,
+		stdlib,
+		lager,
+		erlydtl,
+		cowboy,
+		todee_data,
+		jsx
+	]},
+	{env,[]},
+	{modules, []},
+	{maintainers, []},
+	{licenses, []},
+	{links, []}
+]}.
