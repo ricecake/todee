@@ -20,7 +20,8 @@ start(_StartType, _StartArgs) ->
 			Dispatch = cowboy_router:compile([
 				{'_', [
 					% Static File route
-					{"/static/[...]", cowboy_static, {priv_dir, todee_web, "static/"}}
+					{"/static/[...]", cowboy_static, {priv_dir, todee_web, "static/"}},
+                                        {"/api/entry",    todee_web_entry, []}
 					% Dynamic Pages
 				]}
 			]),
