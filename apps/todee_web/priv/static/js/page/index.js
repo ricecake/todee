@@ -1,7 +1,7 @@
-;define(['jquery'], function($){
+;define(['jquery', 'underscore'], function($, _) {
 'use strict';
 
-$(document).ready(function(){
+$(document).ready(function() {
 });
 
 });
