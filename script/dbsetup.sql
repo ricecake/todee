@@ -1,6 +1,11 @@
 BEGIN;
 
-    CREATE TABLE user ();
-    CREATE TABLE entries ();
+    CREATE TABLE user (
+        id serial primary key,
+        username text not null
+    );
+    CREATE TABLE entries (
+        id serial primary key
+    );
 
 COMMIT;
