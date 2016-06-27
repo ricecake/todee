@@ -1,17 +1,17 @@
 BEGIN;
-    CREATE TABLE user (
+    CREATE TABLE todee_user (
         id serial primary key,
         username text not null
     );
     CREATE TABLE calorie_entry (
         id serial primary key,
-        user integer references user(id),
+        user integer references todee_user(id),
         entry_time timestamp without timezone not null default now(),
         calories integer not null
     );
     CREATE TABLE weight_entry (
         id serial primary key,
-        user integer references user(id),
+        user integer references todee_user(id),
         entry_time timestamp without timezone not null default now(),
         weight integer not null
     );
