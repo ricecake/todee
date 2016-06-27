@@ -1,15 +1,27 @@
 BEGIN;
-
     CREATE TABLE user (
         id serial primary key,
         username text not null
     );
-    CREATE TABLE entries (
+    CREATE TABLE calorie_entry (
         id serial primary key,
-        date timestamp without timezone not null default now(),
-        ---- Should this be a list of raw measurements with a view that aggregates to daily?
-        calories integer not null,
+        user integer references user(id),
+        entry_time timestamp without timezone not null default now(),
+        calories integer not null
+    );
+    CREATE TABLE weight_entry (
+        id serial primary key,
+        user integer references user(id),
+        entry_time timestamp without timezone not null default now(),
         weight integer not null
     );
+
+    create or replace view user_daily as
+        select u.user, date_trunc('day', c.entry_time), sum(c.calories), avg(w.weight)
+        from user u
+        join calorie_entry c on c.user = u.id
+        join weight_entry  w on w.user = u.id
+        where date_trunc('day', c.entry_time) = date_trunc('day', w.entry_time)
+        group by u.user, date_trunc('day', c.entry_time);
 
 COMMIT;
