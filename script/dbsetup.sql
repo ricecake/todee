@@ -19,9 +19,9 @@ BEGIN;
     create or replace view user_daily as
         select
             u.id as entrant,
-            date_trunc('day', c.entry_time) as 'entry_day',
-            sum(c.calories) as 'total_calories',
-            avg(w.weight) as 'average_weight'
+            date_trunc('day', c.entry_time) as entry_day,
+            sum(c.calories) as total_calories,
+            avg(w.weight) as average_weight
         from todee_user u
         left join calorie_entry c on c.entrant = u.id
         left join weight_entry  w on w.entrant = u.id
