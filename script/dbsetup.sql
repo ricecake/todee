@@ -1,3 +1,6 @@
+CREATE USER todee PASSWORD 'EXAMPLE#!';
+CREATE DATABASE todee;
+
 BEGIN;
     CREATE TABLE todee_user (
         id serial primary key,
