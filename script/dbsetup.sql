@@ -32,8 +32,8 @@ BEGIN;
                 max(id) as max_id,
                 entrant
             from weight_entry
-            group by entrant
-                             )  w_max on w_max.entrant = u.id
+            group by entrant, date_trunc('day', entry_time)
+        )  w_max on w_max.entrant = u.id
         join weight_entry w on w.id = w_max.max_id
         where date_trunc('day', c.entry_time) = date_trunc('day', w.entry_time)
         group by u.id, date_trunc('day', c.entry_time);
