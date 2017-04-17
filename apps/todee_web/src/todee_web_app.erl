@@ -21,7 +21,7 @@ start(_StartType, _StartArgs) ->
 				{'_', [
 					% Static File route
 					{"/static/[...]", cowboy_static, {priv_dir, todee_web, "static/"}},
-                                        {"/api/entry",    todee_web_entry, []}
+                                        {"/api/[...]",    todee_web_api_entry, []}
 					% Dynamic Pages
 				]}
 			]),
