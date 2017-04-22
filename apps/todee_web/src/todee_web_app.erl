@@ -25,7 +25,7 @@ start(_StartType, _StartArgs) ->
 					% Dynamic Pages
 				]}
 			]),
-			{ok, _} = cowboy:start_http(todee_web, 25, [{ip, {127,0,0,1}}, {port, 8989}],
+			{ok, _} = cowboy:start_clear(todee_web, 25, [{ip, {127,0,0,1}}, {port, 8989}],
 							[{env, [{dispatch, Dispatch}]}]),
 			{ok, Pid}
 	end.
