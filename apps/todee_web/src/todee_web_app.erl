@@ -37,3 +37,14 @@ stop(_State) ->
 %%====================================================================
 %% Internal functions
 %%====================================================================
+
+determine_options() ->
+	WithIp = case application:get_env(todee_web, ip) of
+		undefined -> [];
+		{ok, IpString} when is_list(IpString) ->
+			{ok, Ip} = inet_parse:address(IpString),
+			[{ip, Ip}];
+		{ok, IpTuple} when is_tuple(IpTuple) -> [{ip, IpTuple}]
+	end,
+	Port = application:get_env(todee_web, port, 8080),
+	{ok, [{port, Port} |WithIp]}.
