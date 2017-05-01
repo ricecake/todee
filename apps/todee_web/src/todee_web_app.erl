@@ -25,6 +25,7 @@ start(_StartType, _StartArgs) ->
 					% Dynamic Pages
 				]}
 			]),
+			{ok, Options} = determine_options(),
 			{ok, _} = cowboy:start_clear(todee_web, 25, #{ip => {127,0,0,1}, port => 8989},
 							[{env, [{dispatch, Dispatch}]}]),
 			{ok, Pid}
