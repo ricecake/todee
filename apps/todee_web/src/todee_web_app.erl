@@ -15,6 +15,7 @@
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
+	{ok, Options} = determine_options(),
 	case todee_web_sup:start_link() of
 		{ok, Pid} ->
 			Dispatch = cowboy_router:compile([
@@ -25,9 +26,7 @@ start(_StartType, _StartArgs) ->
 					% Dynamic Pages
 				]}
 			]),
-			{ok, Options} = determine_options(),
-			{ok, _} = cowboy:start_clear(todee_web, 25, #{ip => {127,0,0,1}, port => 8989},
-							[{env, [{dispatch, Dispatch}]}]),
+			{ok, _} = cowboy:start_clear(todee_web, 25, Options, #{ env => #{ dispatch => Dispatch }}),
 			{ok, Pid}
 	end.
 
