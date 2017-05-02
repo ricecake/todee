@@ -15,18 +15,9 @@
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
-	{ok, Options} = determine_options(),
 	case todee_web_sup:start_link() of
 		{ok, Pid} ->
-			Dispatch = cowboy_router:compile([
-				{'_', [
-					% Static File route
-					{"/static/[...]", cowboy_static, {priv_dir, todee_web, "static/"}},
-                                        {"/api/[...]",    todee_web_api_entry, []}
-					% Dynamic Pages
-				]}
-			]),
-			{ok, _} = cowboy:start_clear(todee_web, 25, Options, #{ env => #{ dispatch => Dispatch }}),
+			ok = start_cowboy(),
 			{ok, Pid}
 	end.
 
@@ -37,6 +28,20 @@ stop(_State) ->
 %%====================================================================
 %% Internal functions
 %%====================================================================
+
+start_cowboy() ->
+	{ok, Options} = determine_options(),
+	Dispatch = cowboy_router:compile([
+		{'_', [
+			% Static File route
+			{"/static/[...]", cowboy_static, {priv_dir, todee_web, "static/"}},
+			{"/api/[...]",    todee_web_api_entry, []}
+			% Dynamic Pages
+		]}
+	]),
+	{ok, _} = cowboy:start_clear(todee_web, 25, Options, #{ env => #{ dispatch => Dispatch }}),
+	ok.
+
 
 determine_options() ->
 	WithIp = case application:get_env(todee_web, ip) of
