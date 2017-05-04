@@ -1,5 +1,5 @@
 {application, todee_web, [
-	{description, "TODEE web interface"},
+	{description, "Todee web interface"},
 	{vsn, "0.1.0"},
 	{registered, []},
 	{mod, { todee_web_app, []}},
