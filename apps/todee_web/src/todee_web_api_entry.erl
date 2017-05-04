@@ -32,7 +32,7 @@ is_authorized(Req, State) ->
 	end.
 
 allowed_methods(Req, State) ->
-	Methods = [<<"GET">>, <<"PUT">>, <<"PATCH">>, <<"DELETE">>, <<"POST">>],
+	Methods = [<<"GET">>, <<"PUT">>, <<"DELETE">>, <<"POST">>],
 	{Methods, Req, State}.
 
 content_types_provided(Req, State) ->
@@ -53,7 +53,7 @@ resource_exists(Req, _State) ->
 	case cowboy_req:binding(route, Req) of
 		undefined ->
 			{true, Req, index};
-		Route ->{true, Req, Route}
+		Route -> {true, Req, Route}
 	end.
 
 list_entry_json(Req, index) ->
