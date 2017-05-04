@@ -1,5 +1,5 @@
 {application, todee_data, [
-	{description, "TODEE data management app"},
+	{description, "Todee Data Manager"},
 	{vsn, "0.1.0"},
 	{registered, []},
 	{mod, { todee_data_app, []}},
