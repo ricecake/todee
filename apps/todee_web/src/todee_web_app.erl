@@ -51,5 +51,5 @@ determine_options() ->
 			[{ip, Ip}];
 		{ok, IpTuple} when is_tuple(IpTuple) -> [{ip, IpTuple}]
 	end,
-	Port = application:get_env(todee_web, port, 8080),
+	Port = application:get_env(todee_web, port, 8981),
 	{ok, maps:from_list([{port, Port} |WithIp])}.
