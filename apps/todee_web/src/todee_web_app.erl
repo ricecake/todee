@@ -36,7 +36,6 @@ start_cowboy() ->
 			% Static File route
 			{"/static/[...]", cowboy_static, {priv_dir, todee_web, "static/"}},
 			{"/api/[...]",    todee_web_api_entry, []}
-			
 		]}
 	]),
 	{ok, _} = cowboy:start_clear(todee_web, 25, Options, #{ env => #{ dispatch => Dispatch }}),
