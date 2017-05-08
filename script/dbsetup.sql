@@ -19,7 +19,7 @@ BEGIN;
         weight integer not null
     );
 
-    create or replace view user_daily as
+    create or replace view user_daily_summary as
         select
             u.id as entrant,
             date_trunc('day', c.entry_time) as entry_day,
