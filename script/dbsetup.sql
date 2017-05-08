@@ -19,32 +19,32 @@ BEGIN;
         weight integer not null
     );
 
-    create or replace view user_daily_summary as
-        select
-            u.id as entrant,
-            date_trunc('day', c.entry_time) as entry_day,
-            sum(c.calories) as total_calories,
-            w.weight as last_weight
-        from todee_user u
-        left join calorie_entry c on c.entrant = u.id
-        left join (
-            select
-                max(id) as max_id,
+    CREATE OR REPLACE VIEW user_daily_summary AS
+        SELECT
+            u.id AS entrant,
+            date_trunc('day', c.entry_time) AS entry_day,
+            sum(c.calories) AS total_calories,
+            w.weight AS last_weight
+        FROM todee_user u
+        LEFT JOIN calorie_entry c ON c.entrant = u.id
+        LEFT JOIN (
+            SELECT
+                MAX(id) AS max_id,
                 entrant
-            from weight_entry
-            group by entrant, date_trunc('day', entry_time)
-        )  w_max on w_max.entrant = u.id
-        join weight_entry w on w.id = w_max.max_id
-        where date_trunc('day', c.entry_time) = date_trunc('day', w.entry_time)
-        group by u.id, date_trunc('day', c.entry_time);
+            FROM weight_entry
+            GROUP BY entrant, date_trunc('day', entry_time)
+        )  w_max ON w_max.entrant = u.id
+        JOIN weight_entry w on w.id = w_max.max_id
+        WHERE date_trunc('day', c.entry_time) = date_trunc('day', w.entry_time)
+        GROUP BY u.id, date_trunc('day', c.entry_time);
 
-        create index on calorie_entry (entry_time);
-        create index on calorie_entry (entrant);
-        create index on calorie_entry (calories);
+        CREATE INDEX ON calorie_entry (entry_time);
+        CREATE INDEX ON calorie_entry (entrant);
+        CREATE INDEX ON calorie_entry (calories);
 
-        create index on weight_entry (entry_time);
-        create index on weight_entry (entrant);
-        create index on weight_entry (weight);
+        CREATE INDEX ON weight_entry (entry_time);
+        CREATE INDEX ON weight_entry (entrant);
+        CREATE INDEX ON weight_entry (weight);
 
 
 COMMIT;
