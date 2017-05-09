@@ -6,12 +6,14 @@ BEGIN;
         id serial primary key,
         username text not null
     );
+
     CREATE TABLE calorie_entry (
         id serial primary key,
         entrant integer not null references todee_user(id),
         entry_time timestamp without time zone not null default now(),
         calories integer not null
     );
+
     CREATE TABLE weight_entry (
         id serial primary key,
         entrant integer not null references todee_user(id),
@@ -34,7 +36,7 @@ BEGIN;
             FROM weight_entry
             GROUP BY entrant, date_trunc('day', entry_time)
         )  w_max ON w_max.entrant = u.id
-        JOIN weight_entry w on w.id = w_max.max_id
+        JOIN weight_entry w ON w.id = w_max.max_id
         WHERE date_trunc('day', c.entry_time) = date_trunc('day', w.entry_time)
         GROUP BY u.id, date_trunc('day', c.entry_time);
 
@@ -45,6 +47,4 @@ BEGIN;
         CREATE INDEX ON weight_entry (entry_time);
         CREATE INDEX ON weight_entry (entrant);
         CREATE INDEX ON weight_entry (weight);
-
-
 COMMIT;
