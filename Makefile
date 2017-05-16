@@ -9,13 +9,11 @@ doc:
 	@$(REBAR) edoc
 
 test:
-	@$(REBAR) do xref, dialyzer, eunit #, ct, cover
+	@$(REBAR) do xref, dialyzer, eunit
 
 release:
 	@$(REBAR) release
 
-tar:
-	@$(REBAR) as prod tar
 
 run:
 	@$(REBAR) as dev run
